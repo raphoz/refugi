@@ -1,0 +1,69 @@
+{
+  "supplies": [
+    {
+      "nome": "Água",
+      "atual": "20",
+      "minimo": "30",
+      "status": "Em risco",
+      "id": "1748995406258"
+    }
+  ],
+  "people": [
+    {
+      "nome": "Aloy Rostson",
+      "genero": "Masculino",
+      "idade": "45",
+      "celular": "11 8888-8888",
+      "id": "1748995430826"
+    },
+    {
+      "id": "1748995451754",
+      "nome": "Another",
+      "genero": "Feminino",
+      "idade": "22",
+      "celular": "11 8888-8888"
+    }
+  ],
+  "messages": [
+    {
+      "id": "1748995469187",
+      "texto": "Alerta Alpha",
+      "autor": "aa",
+      "tipo": "Atenção",
+      "timestamp": 1748995469187
+    },
+    {
+      "id": "1748995486199",
+      "texto": "Alerta Betha",
+      "autor": "Sandro",
+      "tipo": "Urgente",
+      "timestamp": 1748995486199
+    },
+    {
+      "id": "1748995498883",
+      "texto": "Alerta Omega",
+      "autor": "Carl",
+      "tipo": "Informação",
+      "timestamp": 1748995498883
+    }
+  ],
+  "collaborators": [
+    {
+      "nome": "Sandra Camargo II",
+      "funcao": "Assistente Social - Voluntária",
+      "email": "sandra@email.com.br",
+      "telefone": "(11) 923456",
+      "id": "1748996394737"
+    }
+  ],
+  "shelters": [
+    {
+      "nome": "Exemplo",
+      "capacidade": 300,
+      "ocupado": 20,
+      "suprimentos": "Sabão, Cobertor",
+      "mensagem": "Estamos operando pela entrada B4 do prédio.",
+      "id": "1749007003214"
+    }
+  ]
+}

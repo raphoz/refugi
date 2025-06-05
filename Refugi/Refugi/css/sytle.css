@@ -1,0 +1,57 @@
+body {
+    background-color: #f8f9fa;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .nav-link.active {
+    font-weight: bold;
+    background-color: #e9ecef;
+  }
+  
+  .status-badge {
+    padding: 0.3em 0.6em;
+    font-size: 0.8rem;
+    border-radius: 0.5rem;
+    font-weight: bold;
+    display: inline-block;
+  }
+  
+  .status-estável {
+    background-color: #d1e7dd;
+    color: #0f5132;
+  }
+  .status-em-risco {
+    background-color: #fff3cd;
+    color: #664d03;
+  }
+  .status-crítico {
+    background-color: #f8d7da;
+    color: #842029;
+  }
+  
+  .alert-message {
+    background: #e9ecef;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .table-scroll-container,
+  .alerts-scroll-container {
+    max-height: 250px;
+    overflow-y: auto;
+    border-radius: 0.75rem;
+    border: 1px solid #dee2e6;
+    
+  }
+  .progress {
+    background-color: #e9ecef;
+    border-radius: 1rem;
+    overflow: hidden;
+  }
+  .progress-bar {
+    height: 100%;
+    transition: width 0.4s ease;
+  }
+  
+  

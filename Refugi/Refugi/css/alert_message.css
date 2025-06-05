@@ -1,0 +1,47 @@
+.alerts-scroll-container {
+    max-height: 250px; /* Max height for scrolling */
+    overflow-y: auto; /* Enable vertical scrolling */
+    border-radius: 0.75rem;
+    border: 1px solid #dee2e6; /* Add a subtle border */
+}
+.alert-message {
+    padding: 1rem;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+.alert-message:nth-child(odd) {
+    background-color: #e9ecef; /* Light gray */
+}
+.alert-message:nth-child(even) {
+    background-color: #f8f9fa; /* White */
+}
+.alert-message .alert-content {
+    flex-grow: 1;
+    margin-right: 1rem;
+}
+.alert-message .alert-meta {
+    text-align: right;
+    flex-shrink: 0;
+    font-size: 0.875em;
+    color: #6c757d;
+}
+.alert-message .alert-meta .type {
+    font-weight: 600;
+    display: block;
+}
+.alert-message .alert-icon {
+    font-size: 1.25rem;
+    margin-right: 0.75rem;
+    color: #0d6efd; /* Default blue for info */
+    /* Explicitly set Font Awesome font properties */
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900; /* Use solid icon weight */
+}
+.alert-message.urgent .alert-icon {
+    color: #dc3545; /* Red for urgent */
+}
+.alert-message.attention .alert-icon {
+    color: #ffc107; /* Yellow for attention */
+}
