@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Refugi - Autenticação</title>
+    
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="./house-heart-fill.svg">
+    <!-- Firebase SDK v9 -->
+    
+</head>
+<body>
+    <!-- Header with theme toggle -->
+    <header class="header-bar">
+        <div class="container-fluid">
+            <div class="d-flex justify-content-between align-items-center py-3 px-4">
+                <div class="logo">
+                    <h4 class="mb-0 fw-bold "><i class="bi bi-house-heart-fill"></i> Refugi</h4>
+                </div>
+                <div class="theme-toggle">
+                    <button id="theme-toggle" class="btn btn-outline-secondary btn-sm" aria-label="Alternar tema">
+                        <i class="bi bi-sun-fill" id="theme-icon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-content d-flex">
+        <!-- Left Side - Forms -->
+        <div class="col-lg-6 col-md-7 col-12 d-flex align-items-center justify-content-center p-4">
+            <div class="form-container w-100" style="max-width: 400px;">
+                
+                <!-- Sign In Form -->
+                <div id="signin-form" class="auth-form">
+                    <div class="text-center mb-4">
+                        <h2 class="fw-bold mb-2">Login</h2>
+                        <p class="text-muted">Bem-vindo de volta!</p>
+                    </div>
+                    
+                    <form id="signin-form-element" novalidate>
+                        <div class="mb-3">
+                            <label for="signin-email" class="form-label">Email</label>
+                            <input type="email" class="form-control form-control-lg" id="signin-email" placeholder="email@exemplo.com" required>
+                            <div class="invalid-feedback">
+                                Por favor, insira um email válido.
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="signin-password" class="form-label">Senha</label>
+                            <input type="password" class="form-control form-control-lg" id="signin-password" placeholder="••••••••••" required>
+                            <div class="invalid-feedback">
+                                Por favor, insira sua senha.
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3 text-end">
+                            <a href="#" id="show-forgot-password" class="text-decoration-none small">Esqueceu a senha?</a>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-lg w-100 mb-3">Entrar</button>
+                        
+                        <div class="text-center">
+                            <span class="text-muted">Não tem uma conta? </span>
+                            <a href="#" id="show-signup" class="text-decoration-none">Criar uma conta</a>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- Sign Up Form -->
+                <div id="signup-form" class="auth-form d-none">
+                    <div class="text-center mb-4">
+                        <h2 class="fw-bold mb-2">Cadastro</h2>
+                        <p class="text-muted">Bem-vindo ao Refugi!</p>
+                    </div>
+                    
+                    <form id="signup-form-element" novalidate>
+                        <div class="mb-3">
+                            <label for="signup-nome" class="form-label">Nome</label>
+                            <input type="text" class="form-control" id="signup-nome" placeholder="Seu nome completo" required>
+                            <div class="invalid-feedback">
+                                Por favor, insira seu nome.
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="signup-email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="signup-email" placeholder="email@exemplo.com" required>
+                            <div class="invalid-feedback">
+                                Por favor, insira um email válido.
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="signup-abrigo" class="form-label">Nome do Abrigo</label>
+                            <input type="text" class="form-control" id="signup-abrigo" placeholder="Nome do seu abrigo" required>
+                            <div class="invalid-feedback">
+                                Por favor, insira o nome do abrigo.
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="signup-capacidade" class="form-label">Capacidade Máxima</label>
+                            <input type="number" class="form-control" id="signup-capacidade" placeholder="Ex: 50" min="1" required>
+                            <div class="invalid-feedback">
+                                Por favor, insira a capacidade máxima.
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="signup-contato" class="form-label">Contato</label>
+                            <input type="tel" class="form-control" id="signup-contato" placeholder="(xx) xxxxx-xxxx" pattern="^\(\d{2}\)\s?\d{4,5}-\d{4}$" required>
+                            <div class="invalid-feedback">
+                                Por favor, insira um contato válido no formato (xx) xxxx-xxxx ou (xx) xxxxx-xxxx.
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="signup-password" class="form-label">Senha</label>
+                            <input type="password" class="form-control" id="signup-password" placeholder="••••••••••" minlength="6" required>
+                            <div class="invalid-feedback">
+                                Por favor, insira uma senha com pelo menos 6 caracteres.
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-lg w-100 mb-3">Cadastrar</button>
+                        
+                        <div class="text-center">
+                            <span class="text-muted">Já tem uma conta? </span>
+                            <a href="#" id="show-signin" class="text-decoration-none">Faça login</a>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Forgot Password Form -->
+                <div id="forgot-password-form" class="auth-form d-none">
+                    <div class="text-center mb-4">
+                        <h2 class="fw-bold mb-2">Esqueceu a senha?</h2>
+                        <p class="text-muted">Insira seu email para receber um link de redefinição de senha</p>
+                    </div>
+                    
+                    <form id="forgot-password-form-element" novalidate>
+                        <div class="mb-3">
+                            <label for="forgot-email" class="form-label">Email</label>
+                            <input type="email" class="form-control form-control-lg" id="forgot-email" placeholder="email@exemplo.com" required>
+                            <div class="invalid-feedback">
+                                Por favor, insira um email válido.
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <small class="text-muted">
+                                <i class="bi bi-info-circle me-1"></i>
+                                Você receberá um email com instruções para redefinir sua senha.
+                            </small>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-lg w-100 mb-3">
+                            <i class="bi bi-envelope me-2"></i>Enviar link de redefinição
+                        </button>
+                        
+                        <div class="text-center">
+                            <a href="#" id="back-to-signin" class="text-decoration-none">
+                                <i class="bi bi-arrow-left me-1"></i>Voltar ao login
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Right Side - Banner -->
+        <div class="col-lg-6 col-md-5 d-none d-md-flex banner-section">
+            <div class="banner-content">
+                <div class="banner-overlay">
+                    <div class="text-center text-white">
+                        <div class="banner-logo mb-4">
+                            <i class="bi bi-house-heart-fill display-1"></i>
+                        </div>
+                        <h1 class="display-2 fw-bold mb-3">
+                            <div class="col-lg-6 col-md-5 mx-auto margin">
+                                 <img class="img-fluid" src="./ico.png" alt="">
+                            </div>
+                           
+                        </h1>
+                        <p class="lead opacity-90 mb-4">Conectando abrigos e pessoas em situação de vulnerabilidade</p>
+                        <div class="banner-features">
+                            <div class="feature-item mb-3">
+                                <i class="bi bi-shield-check me-2"></i>
+                                <span>Plataforma segura e confiável</span>
+                            </div>
+                            <div class="feature-item mb-3">
+                                <i class="bi bi-people me-2"></i>
+                                <span>Conectando comunidades</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="bi bi-heart me-2"></i>
+                                <span>Ajudando quem mais precisa</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+</body>
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Custom JS -->
+
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword  } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
+import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+
+// Firebase configuration
+const firebaseConfig = {
+    apiKey: "AIzaSyDUToDSB76WC06XnEMmgzGNUm8iS1_30J0",
+    authDomain: "refugi-app.firebaseapp.com",
+    projectId: "refugi-app",
+    storageBucket: "refugi-app.firebasestorage.app",
+    messagingSenderId: "676055353642",
+    appId: "1:676055353642:web:534a0f234dd32acbc4b653"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const firebaseAuth = getAuth(app);
+const firebaseDB = getFirestore(app);
+
+// Make auth available globally (optional)
+window.firebaseAuth = firebaseAuth;
+window.firebaseDB = firebaseDB;
+window.signInWithEmailAndPassword = signInWithEmailAndPassword;
+window.createUserWithEmailAndPassword = createUserWithEmailAndPassword;
+window.firebaseDoc = doc;
+window.firebaseSetDoc = setDoc;
+
+</script>
+<script src="app.js"></script>
+</html>

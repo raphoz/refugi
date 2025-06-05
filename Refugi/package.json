@@ -1,0 +1,16 @@
+{
+  "name": "refugi",
+  "version": "1.0.0",
+  "description": "Sistema de gerenciamento de abrigos de emergência",
+  "main": "server.js",
+  "scripts": {
+    "start": "node ./js/server.js",
+    "dev": "nodemon ./js/server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}

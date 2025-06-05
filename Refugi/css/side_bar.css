@@ -1,0 +1,106 @@
+.sidebar {
+    width: 250px; /* Largura fixa da sidebar */
+    height: 100vh; /* Ocupa a altura total da viewport */
+    background-color: #fff; /* Fundo branco para o modo não selecionado */
+    padding: 1.5rem 0;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.05); /* Sombra sutil */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Para empurrar o footer para o final */
+}
+.sidebar-header {
+    padding: 0 1.5rem 2rem;
+    text-align: center; /* Centraliza o logo */
+}
+.sidebar-brand {
+    max-width: 160px;
+}
+
+/* Estilos para a nova seção de perfil */
+.sidebar-profile {
+    padding: 0 1.5rem 2rem; /* Espaçamento da seção de perfil */
+    display: flex; /* Torna o contêiner flexível */
+    align-items: center; /* Alinha itens verticalmente ao centro */
+    text-align: left; /* Alinha o texto à esquerda */
+}
+.profile-picture {
+    width: 60px; /* Tamanho da foto de perfil */
+    height: 60px;
+    border-radius: 50%; /* Formato circular */
+    object-fit: cover; /* Garante que a imagem preencha o círculo */
+    margin-right: 0.75rem; /* Espaço à direita da foto */
+    border: 2px solid #e9ecef; /* Borda sutil */
+    flex-shrink: 0; /* Evita que a imagem encolha */
+}
+.profile-text {
+    display: flex;
+    flex-direction: column; /* Empilha nome e cargo */
+    justify-content: center; /* Centraliza verticalmente o texto */
+    flex-grow: 1; /* Permite que o texto ocupe o espaço restante */
+}
+.profile-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #343a40; /* Cor mais escura para o nome */
+    margin-bottom: 0.1rem; /* Espaço menor entre nome e cargo */
+    line-height: 1.2; /* Ajusta a altura da linha */
+}
+.profile-role {
+    font-size: 0.9rem;
+    color: #6c757d; /* Cor cinza para o cargo */
+    margin-bottom: 0;
+    line-height: 1.2; /* Ajusta a altura da linha */
+}
+
+.sidebar-nav {
+    flex-grow: 1; /* Permite que a navegação ocupe o espaço disponível */
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.sidebar-nav-item {
+    margin-bottom: 0.5rem;
+}
+.sidebar-nav-link {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1.5rem;
+    color: #6c757d; /* Texto e ícones cinza para não selecionado */
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s ease-in-out;
+    border-radius: 0.5rem; /* Bordas levemente arredondadas */
+    margin: 0 1rem; /* Margem lateral para o item ter um "espaço" */
+    position: relative; /* Necessário para o pseudo-elemento do bookmark */
+}
+.sidebar-nav-link:hover {
+    background-color: #e9ecef; /* Cinza claro no hover */
+    color: #6c757d; /* Mantém a cor do texto no hover */
+}
+.sidebar-nav-link.selected {
+    background-color: #e9ecef; /* Fundo cinza claro para selecionado */
+    color: #6366F1; /* Texto e ícones roxos para selecionado */
+    font-weight: 600;
+}
+/* Estilo para a barra lateral roxa (bookmark) */
+.sidebar-nav-link.selected::before {
+    content: '';
+    position: absolute;
+    left: 0; /* Alinha à esquerda do link */
+    top: 50%;
+    transform: translateY(-50%);
+    width: 5px; /* Largura da barra */
+    height: 80%; /* Altura da barra em relação ao link */
+    background-color: #6366F1; /* Cor roxa */
+    border-radius: 0 0.25rem 0.25rem 0; /* Arredondado apenas na direita */
+}
+.sidebar-nav-link i {
+    margin-right: 0.75rem;
+    font-size: 1.1rem;
+}
+.sidebar-footer {
+    padding: 1.5rem 0 0; /* Padding superior para separar do menu */
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
