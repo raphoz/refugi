@@ -13,27 +13,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="./house-heart-fill.svg">
     <!-- Firebase SDK v9 -->
-    <script type="module">
-        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js';
-        import { getAuth } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js';
-        
-        // Firebase configuration (replace with your actual config)
-        const firebaseConfig = {
-            apiKey: "your-api-key",
-            authDomain: "your-project.firebaseapp.com",
-            projectId: "your-project-id",
-            storageBucket: "your-project.appspot.com",
-            messagingSenderId: "123456789",
-            appId: "your-app-id"
-        };
-
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        
-        // Make auth available globally
-        window.firebaseAuth = auth;
-    </script>
+    
 </head>
 <body>
     <!-- Header with theme toggle -->
@@ -136,9 +116,9 @@
                         
                         <div class="mb-3">
                             <label for="signup-contato" class="form-label">Contato</label>
-                            <input type="tel" class="form-control" id="signup-contato" placeholder="(xx) xxxx-xxxx" pattern="\(\d{2}\) \d{4}-\d{4}" required>
+                            <input type="tel" class="form-control" id="signup-contato" placeholder="(xx) xxxxx-xxxx" pattern="pattern="^\(\d{2}\)\s?\d{4,5}-\d{4}$" required>
                             <div class="invalid-feedback">
-                                Por favor, insira um contato válido no formato (xx) xxxx-xxxx.
+                                Por favor, insira um contato válido no formato (xx) xxxx-xxxx ou (xx) xxxxx-xxxx.
                             </div>
                         </div>
                         
@@ -231,11 +211,37 @@
         </div>
     </div>
     
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Firebase Auth -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js"></script>
-    <!-- Custom JS -->
-    <script src="app.js"></script>
+    
 </body>
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Custom JS -->
+
+<script src="app.js"></script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword  } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
+import { getFirestore, collection, query, where, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+
+// Firebase configuration
+const firebaseConfig = {
+    apiKey: "AIzaSyDUToDSB76WC06XnEMmgzGNUm8iS1_30J0",
+    authDomain: "refugi-app.firebaseapp.com",
+    projectId: "refugi-app",
+    storageBucket: "refugi-app.firebasestorage.app",
+    messagingSenderId: "676055353642",
+    appId: "1:676055353642:web:534a0f234dd32acbc4b653"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const firebaseAuth = getAuth(app);
+const firebaseDB = getFirestore(app);
+
+// Make auth available globally (optional)
+window.firebaseAuth = firebaseAuth;
+window.firebaseDB = firebaseDB;
+window.signInWithEmailAndPassword = signInWithEmailAndPassword;
+
+</script>
 </html>
