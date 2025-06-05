@@ -246,18 +246,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    if (signupFormElement) {
-        signupFormElement.addEventListener('submit', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            if (this.checkValidity() && validateCustomFields()) {
-                handleSignupSubmit();
-            } else {
-                this.classList.add('was-validated');
-            }
-        });
-    }
     
     if (forgotPasswordFormElement) {
         forgotPasswordFormElement.addEventListener('submit', function(e) {
@@ -427,7 +415,7 @@ async function handleSignupSubmit() {
 
         // Show success
         showSuccessMessage('Cadastro realizado com sucesso!', form);
-        setTimeout(() => window.location.href = 'login.html', 2000);
+        setTimeout(() => window.location.href = 'index.html', 2000);
 
     } catch (error) {
         console.error("Signup error:", error);
@@ -452,11 +440,7 @@ function getFriendlyError(error) {
     }
 }
 
-// Attach event listener
-document.getElementById('signupForm')?.addEventListener('submit', function(e) {
-    e.preventDefault();
-    handleSignupSubmit();
-});
+
     // Handle forgot password form submission with Firebase
     function handleForgotPasswordSubmit() {
         const submitBtn = forgotPasswordFormElement.querySelector('button[type="submit"]');
