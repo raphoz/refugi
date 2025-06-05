@@ -116,7 +116,7 @@
                         
                         <div class="mb-3">
                             <label for="signup-contato" class="form-label">Contato</label>
-                            <input type="tel" class="form-control" id="signup-contato" placeholder="(xx) xxxxx-xxxx" pattern="pattern="^\(\d{2}\)\s?\d{4,5}-\d{4}$" required>
+                            <input type="tel" class="form-control" id="signup-contato" placeholder="(xx) xxxxx-xxxx" pattern="^\(\d{2}\)\s?\d{4,5}-\d{4}$" required>
                             <div class="invalid-feedback">
                                 Por favor, insira um contato válido no formato (xx) xxxx-xxxx ou (xx) xxxxx-xxxx.
                             </div>
@@ -217,11 +217,11 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Custom JS -->
 
-<script src="app.js"></script>
+
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword  } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
-import { getFirestore, collection, query, where, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
 // Firebase configuration
 const firebaseConfig = {
@@ -242,6 +242,10 @@ const firebaseDB = getFirestore(app);
 window.firebaseAuth = firebaseAuth;
 window.firebaseDB = firebaseDB;
 window.signInWithEmailAndPassword = signInWithEmailAndPassword;
+window.createUserWithEmailAndPassword = createUserWithEmailAndPassword;
+window.firebaseDoc = doc;
+window.firebaseSetDoc = setDoc;
 
 </script>
+<script src="app.js"></script>
 </html>

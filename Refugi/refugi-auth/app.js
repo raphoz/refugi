@@ -1,6 +1,10 @@
 // Refugi Authentication App JavaScript with Theme Toggle and Firebase Integration
 
+
+// Your existing code for login and other functionality
+
 document.addEventListener('DOMContentLoaded', function() {
+    
     // ===== DECLARE ALL VARIABLES FIRST =====
     // Get form elements
     const signinForm = document.getElementById('signin-form');
@@ -121,6 +125,10 @@ document.addEventListener('DOMContentLoaded', function() {
         
         console.log(`Tema alterado de ${currentTheme} para ${newTheme}`);
     }
+
+    const firebaseAuth = window.firebaseAuth;
+    const firebaseDB = window.firebaseDB;
+    const signInWithEmailAndPassword = window.signInWithEmailAndPassword;
     
     // Form switching functions
     function switchToSignup() {
@@ -269,18 +277,18 @@ document.addEventListener('DOMContentLoaded', function() {
     function validateCustomFields() {
         let isValid = true;
         
-        // Validate contact format
-        if (contactInput) {
-            const contactValue = contactInput.value;
-            const contactRegex = /^\(\d{2}\) \d{4}-\d{4}$/;
-            
-            if (!contactRegex.test(contactValue)) {
-                contactInput.setCustomValidity('Por favor, insira um contato válido no formato (xx) xxxx-xxxx.');
-                isValid = false;
-            } else {
-                contactInput.setCustomValidity('');
-            }
+      if (contactInput) {
+        const contactValue = contactInput.value.trim();
+        // Aceita (xx) xxxx-xxxx ou (xx) xxxxx-xxxx
+        const contactRegex = /^\(\d{2}\)\s?\d{4,5}-\d{4}$/;
+
+        if (!contactRegex.test(contactValue)) {
+            contactInput.setCustomValidity('Por favor, insira um contato válido no formato (xx) xxxx-xxxx ou (xx) xxxxx-xxxx.');
+            isValid = false;
+        } else {
+            contactInput.setCustomValidity('');
         }
+    }
         
         // Validate capacity is a positive number
         const capacityInput = document.getElementById('signup-capacidade');
@@ -302,77 +310,153 @@ document.addEventListener('DOMContentLoaded', function() {
     function handleSigninSubmit() {
         const submitBtn = signinFormElement.querySelector('button[type="submit"]');
         const originalText = submitBtn.textContent;
-        
+    
         // Show loading state
         submitBtn.disabled = true;
         submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Entrando...';
-        
+    
         // Get form data
         const formData = {
             email: document.getElementById('signin-email').value,
             senha: document.getElementById('signin-password').value
         };
-        
-        // Simulate API call
-        setTimeout(() => {
-            // Reset button
-            submitBtn.disabled = false;
-            submitBtn.textContent = originalText;
-            
-            // Show success message
-            showSuccessMessage('Login realizado com sucesso!', signinFormElement);
-            
-            // In a real app, you would redirect to dashboard
-            console.log('Signin data:', formData);
-            
-            // Add success animation
-            signinFormElement.classList.add('success-animation');
-            setTimeout(() => {
-                signinFormElement.classList.remove('success-animation');
-            }, 600);
-        }, 1500);
+    
+        // Firebase Authentication login
+        signInWithEmailAndPassword(firebaseAuth, formData.email, formData.senha)
+            .then((userCredential) => {
+                const user = userCredential.user;
+    
+                // Reset button
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalText;
+    
+                // Show success message
+                showSuccessMessage('Login realizado com sucesso!', signinFormElement);
+    
+                // Redirect to dashboard or another page
+                console.log('User logged in:', user);
+                setTimeout(() => {
+                    window.location.href = '../index.html'; // Replace with your dashboard page
+                }, 1500);
+    
+                // Add success animation
+                signinFormElement.classList.add('success-animation');
+                setTimeout(() => {
+                    signinFormElement.classList.remove('success-animation');
+                }, 600);
+            })
+            .catch((error) => {
+                console.error("Error during login:", error.message);
+    
+                // Reset button
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalText;
+    
+                // Show error message
+                showErrorMessage('Erro no login: ' + error.message, signinFormElement);
+            });
     }
     
+// Conecta o evento de submit ao handler
+// (Já existe a declaração de signupFormElement acima, então só conecte o evento se necessário)
+// Removido o redeclare para evitar erro
     // Handle signup form submission
-    function handleSignupSubmit() {
-        const submitBtn = signupFormElement.querySelector('button[type="submit"]');
-        const originalText = submitBtn.textContent;
-        
+    // 1. Attach event listener properly
+if (signupFormElement) {
+    signupFormElement.addEventListener('submit', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (this.checkValidity() && validateCustomFields()) {
+            handleSignupSubmit();
+        } else {
+            this.classList.add('was-validated');
+        }
+    });
+}
+
+async function handleSignupSubmit() {
+    const form = signupFormElement;
+    const submitBtn = form.querySelector('button[type="submit"]');
+    
+    if (!submitBtn || !window.createUserWithEmailAndPassword || !window.firebaseAuth || !window.firebaseDB) {
+        console.error('Critical elements not loaded');
+        return;
+    }
+
+    const originalText = submitBtn.textContent;
+    
+    try {
         // Show loading state
         submitBtn.disabled = true;
         submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Cadastrando...';
         
         // Get form data
         const formData = {
-            nome: document.getElementById('signup-nome').value,
-            email: document.getElementById('signup-email').value,
-            nomeAbrigo: document.getElementById('signup-abrigo').value,
-            capacidadeMaxima: parseInt(document.getElementById('signup-capacidade').value),
-            contato: document.getElementById('signup-contato').value,
-            senha: document.getElementById('signup-password').value
+            capacidadeMaxima: parseInt(form.querySelector('#signup-capacidade').value),
+            contato: form.querySelector('#signup-contato').value,
+            email: form.querySelector('#signup-email').value.trim(),
+            nome: form.querySelector('#signup-nome').value.trim(),
+            nomeAbrigo: form.querySelector('#signup-abrigo').value.trim(),
+            senha: form.querySelector('#signup-password').value
         };
-        
-        // Simulate API call
-        setTimeout(() => {
-            // Reset button
-            submitBtn.disabled = false;
-            submitBtn.textContent = originalText;
-            
-            // Show success message
-            showSuccessMessage('Cadastro realizado com sucesso! Redirecionando para login...', signupFormElement);
-            
-            // In a real app, you would make an API call
-            console.log('Signup data:', formData);
-            
-            // Add success animation and switch to signin after delay
-            signupFormElement.classList.add('success-animation');
-            setTimeout(() => {
-                signupFormElement.classList.remove('success-animation');
-                switchToSignin();
-            }, 2000);
-        }, 1500);
+
+        // Validate fields
+        if (!formData.nome || !formData.email || !formData.senha || 
+            !formData.nomeAbrigo || !formData.contato || isNaN(formData.capacidadeMaxima)) {
+            throw new Error('Por favor, preencha todos os campos corretamente.');
+        }
+
+        // Create user
+        const userCredential = await window.createUserWithEmailAndPassword(
+            window.firebaseAuth,
+            formData.email,
+            formData.senha
+        );
+
+        // Save to Firestore
+        await window.firebaseSetDoc(
+                window.firebaseDoc(window.firebaseDB, "Profiles", userCredential.user.uid),
+                {
+                    nome: formData.nome,
+                    email: formData.email,
+                    nomeAbrigo: formData.nomeAbrigo,
+                    capacidadeMaxima: formData.capacidadeMaxima,
+                    contato: formData.contato
+                }
+            );
+
+        // Show success
+        showSuccessMessage('Cadastro realizado com sucesso!', form);
+        setTimeout(() => window.location.href = 'login.html', 2000);
+
+    } catch (error) {
+        console.error("Signup error:", error);
+        showErrorMessage('Erro ao cadastrar: ' + (error.message || error), form);
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
     }
-    
+}
+
+// Helper function for error messages
+function getFriendlyError(error) {
+    switch(error.code) {
+        case 'auth/email-already-in-use':
+            return 'Este email já está cadastrado';
+        case 'auth/weak-password':
+            return 'A senha deve ter pelo menos 6 caracteres';
+        case 'auth/invalid-email':
+            return 'Email inválido';
+        default:
+            return 'Erro ao cadastrar: ' + error.message;
+    }
+}
+
+// Attach event listener
+document.getElementById('signupForm')?.addEventListener('submit', function(e) {
+    e.preventDefault();
+    handleSignupSubmit();
+});
     // Handle forgot password form submission with Firebase
     function handleForgotPasswordSubmit() {
         const submitBtn = forgotPasswordFormElement.querySelector('button[type="submit"]');
